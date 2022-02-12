@@ -224,8 +224,7 @@ def train(train_loader, model, criterion, optimizer, epoch, opt):
         elif opt.method == 'SimCLR':
             loss = criterion(features)
         else:
-            raise ValueError('contrastive method not supported: {}'.
-                             format(opt.method))
+            raise ValueError(f'contrastive method not supported: {opt.method}')
 
         # update metric
         losses.update(loss.item(), bsz)
@@ -282,13 +281,11 @@ def main():
         logger.log_value('learning_rate', optimizer.param_groups[0]['lr'], epoch)
 
         if epoch % opt.save_freq == 0:
-            save_file = os.path.join(
-                opt.save_folder, 'ckpt_epoch_{epoch}.pth'.format(epoch=epoch))
+            save_file = os.path.join(opt.save_folder, 'ckpt_epoch_{epoch}.pth'.format(epoch=epoch))
             save_model(model, optimizer, opt, epoch, save_file)
 
     # save the last model
-    save_file = os.path.join(
-        opt.save_folder, 'last.pth')
+    save_file = os.path.join(opt.save_folder, 'last.pth')
     save_model(model, optimizer, opt, opt.epochs, save_file)
 
 
