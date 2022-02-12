@@ -1,3 +1,6 @@
+results/ckpt/SupCon
+results/log/*.out
+
 tmp*.py
 .idea/
 

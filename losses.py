@@ -31,9 +31,7 @@ class SupConLoss(nn.Module):
         Returns:
             A loss scalar.
         """
-        device = (torch.device('cuda')
-                  if features.is_cuda
-                  else torch.device('cpu'))
+        device = (torch.device('cuda') if features.is_cuda else torch.device('cpu'))
 
         if len(features.shape) < 3:
             raise ValueError('`features` needs to be [bsz, n_views, ...],'
@@ -66,9 +64,7 @@ class SupConLoss(nn.Module):
             raise ValueError('Unknown mode: {}'.format(self.contrast_mode))
 
         # compute logits
-        anchor_dot_contrast = torch.div(
-            torch.matmul(anchor_feature, contrast_feature.T),
-            self.temperature)
+        anchor_dot_contrast = torch.div(torch.matmul(anchor_feature, contrast_feature.T), self.temperature)
         # for numerical stability
         logits_max, _ = torch.max(anchor_dot_contrast, dim=1, keepdim=True)
         logits = anchor_dot_contrast - logits_max.detach()
@@ -76,12 +72,8 @@ class SupConLoss(nn.Module):
         # tile mask
         mask = mask.repeat(anchor_count, contrast_count)
         # mask-out self-contrast cases
-        logits_mask = torch.scatter(
-            torch.ones_like(mask),
-            1,
-            torch.arange(batch_size * anchor_count).view(-1, 1).to(device),
-            0
-        )
+        logits_mask = torch.scatter(torch.ones_like(mask), 1,
+                                    torch.arange(batch_size * anchor_count).view(-1, 1).to(device), 0)
         mask = mask * logits_mask
 
         # compute log_prob
