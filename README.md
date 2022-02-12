@@ -30,7 +30,7 @@ Results on CIFAR-100:
 |  SupCrossEntropy | ResNet50 | Supervised   | Cross Entropy |  75.3 |
 |  SupContrast     | ResNet50 | Supervised   | Contrastive   |  76.5 |
 |  SimCLR          | ResNet50 | Unsupervised | Contrastive   |  70.7 |
-| **Our reproduction** | ResNet50 | Supervised | Contrastive |  |
+| **Our reproduction** | ResNet50 | Supervised | Contrastive | **75.5** |
 
 ## Running
 You might use `CUDA_VISIBLE_DEVICES` to set proper number of GPUs, and/or switch to CIFAR100 by `--dataset cifar100`.  
